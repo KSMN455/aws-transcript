@@ -19,19 +19,27 @@
         </div>
       </div>
     </div>
-    <div class="container my-3">
-      <form name="fm">
-        <div class="form-group row">
-          <label for="input">日本語</label>
-          <textarea class="form-control" name="input" type="text" rows="7" placeholder="翻訳したいテキストを入力してください"></textarea>
+    <div class="container mt-4">
+      <form name="fm" class="row">
+        <div class="col">
+            <div class="form-group">
+              <label for="input">日本語</label>
+              <textarea class="form-control" name="input" type="text" rows="7" placeholder="翻訳したいテキストを入力してください"></textarea>
+            </div>
         </div>
       </form>
-      <button class="btn btn-dark row" id="translate" type="button">翻訳</button>
-    </div>
-    <div class="container my-3">
       <div class="row">
-        <label for="output">英語</label>
-        <textarea class="form-control" id="output" type="text" rows="7" readonly></textarea>
+        <div class="col">
+          <button class="btn btn-dark" id="translate" type="button">翻訳</button>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col">
+          <label for="output">英語</label>
+          <textarea class="form-control" id="output" type="text" rows="7" readonly></textarea>
+        </div>
       </div>
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
