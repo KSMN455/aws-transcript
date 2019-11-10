@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>My Translation</title>
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-3">My Translation</h1>
+        <div>
+          <p>Amazon Web Servicesを使った翻訳アプリです！</p>
+        </div>
+      </div>
+    </div>
+    <div class="container my-3">
+      <form name="fm">
+        <div class="form-group row">
+          <label for="input">日本語</label>
+          <textarea class="form-control" name="input" type="text" rows="7" placeholder="翻訳したいテキストを入力してください"></textarea>
+        </div>
+      </form>
+      <button class="btn btn-dark row" id="translate" type="button">翻訳</button>
+    </div>
+    <div class="container my-3">
+      <div class="row">
+        <label for="output">英語</label>
+        <textarea class="form-control" id="output" type="text" rows="7" readonly></textarea>
+      </div>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+    <!-- Optional JavaScript -->
+    <script type="text/javascript">
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = "ap-northeast-1";
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: "ap-northeast-1:bd09abc1-702f-439b-b0ac-90316881132c",
+        });
+        // execute transcription
+        translate = new AWS.Translate();
+        document.getElementById("translate").onclick = function() {
+          var inputText = document.fm.input.value;
+          var params = {
+            SourceLanguageCode: "ja",
+            TargetLanguageCode: "en",
+            Text: inputText
+          };
+          var result = translate.translateText(params, function(err, data) {
+            if (err) {
+              console.log(err, err.stack);
+              document.getElementById("output").innerHTML = err;
+            } else {
+              console.log(data);
+              document.getElementById("output").innerHTML = data.TranslatedText;
+            }
+          });
+        };
+    </script>
+  </body>
+</html>
